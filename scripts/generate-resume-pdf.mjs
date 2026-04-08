@@ -76,8 +76,10 @@ await page.emulateMedia({ media: "print" });
 const outPath = path.join(root, "Kevin_Maroney_Resume.pdf");
 await page.pdf({
   path: outPath,
-  printBackground: true,
-  margin: { top: "0.45in", right: "0.45in", bottom: "0.45in", left: "0.45in" },
+  format: "Letter",
+  printBackground: false,
+  preferCSSPageSize: true,
+  margin: { top: "0", right: "0", bottom: "0", left: "0" },
 });
 
 await browser.close();

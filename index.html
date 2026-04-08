@@ -703,49 +703,316 @@
   }
   .lp-sub-heading:first-of-type { margin-top: 0; }
 
-  /* ── PRINT / PDF (generated via: npm run build:pdf) ── */
-  @media print {
-    nav,
-    .beliefs-bar { display: none !important; }
+  /* Contact line shown only in print/PDF */
+  .resume-print-contact {
+    display: none;
+  }
 
-    /* Portfolio stays on the site; PDF is a standard résumé length (synced with live copy). */
-    #section-leadership { display: none !important; }
+  /* ── PRINT / PDF — traditional, light résumé (npm run build:pdf) ── */
+  @media print {
+    @page {
+      margin: 0.45in 0.52in;
+    }
+
+    * {
+      -webkit-print-color-adjust: economy;
+      print-color-adjust: economy;
+    }
+
+    html, body {
+      background: #fff !important;
+      color: #1a1a1a !important;
+      font-family: Calibri, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+      font-size: 10.5pt !important;
+      line-height: 1.28 !important;
+    }
+
+    nav,
+    .beliefs-bar,
+    .stats-panel,
+    .resume-screen-note,
+    .hero-label,
+    #section-leadership,
+    #section-contact { display: none !important; }
+
+    .resume-print-contact {
+      display: block !important;
+      font-size: 10pt !important;
+      color: #333 !important;
+      margin: 0 0 10pt 0 !important;
+      font-weight: 400 !important;
+      letter-spacing: 0.01em !important;
+    }
 
     body.hide-hero-main .hero {
-      display: grid !important;
+      display: block !important;
     }
 
     .hero {
-      max-width: none;
-      margin: 0;
-      padding: 32px 40px 40px;
+      display: block !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+      padding: 0 0 10pt 0 !important;
+    }
+
+    .hero-name {
+      font-family: Cambria, Georgia, 'Times New Roman', serif !important;
+      font-size: 22pt !important;
+      font-weight: 700 !important;
+      color: #000 !important;
+      margin: 0 0 3pt 0 !important;
+      line-height: 1.08 !important;
+    }
+
+    .hero-name br { display: none !important; }
+    .hero-name em {
+      font-style: normal !important;
+      color: #000 !important;
+    }
+    .hero-name em::before { content: ' '; }
+
+    .hero-title {
+      font-size: 10.5pt !important;
+      font-weight: 600 !important;
+      color: #222 !important;
+      margin: 0 0 6pt 0 !important;
+    }
+
+    .hero-bio {
+      max-width: 100% !important;
+      font-size: 10pt !important;
+      color: #222 !important;
+      line-height: 1.32 !important;
+    }
+
+    .hero-bio p { margin: 0 0 7pt 0 !important; }
+    .hero-bio ul {
+      margin: 2pt 0 8pt 0 !important;
+      padding-left: 18pt !important;
+      list-style: disc !important;
+    }
+    .hero-bio li {
+      margin: 0 0 3pt 0 !important;
+      padding: 0 !important;
     }
 
     .content {
-      max-width: none;
-      padding: 0 40px 48px;
+      max-width: 100% !important;
+      padding: 0 !important;
     }
 
     .section {
       display: block !important;
-      padding-top: 32px;
+      padding-top: 12pt !important;
     }
 
+    .section-tag { display: none !important; }
+
     .section-heading {
-      page-break-after: avoid;
+      font-family: Cambria, Georgia, 'Times New Roman', serif !important;
+      font-size: 11pt !important;
+      font-weight: 700 !important;
+      color: #000 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.06em !important;
+      border: none !important;
+      border-top: 1px solid #999 !important;
+      padding: 8pt 0 5pt 0 !important;
+      margin: 0 0 9pt 0 !important;
+      page-break-after: avoid !important;
+    }
+
+    .timeline {
+      padding-left: 0 !important;
+      margin: 0 !important;
+    }
+    .timeline::before { display: none !important; }
+
+    .job-dot { display: none !important; }
+
+    .job {
+      position: relative !important;
+      margin-bottom: 11pt !important;
+      page-break-inside: avoid !important;
+    }
+
+    .job-header {
+      display: flex !important;
+      flex-wrap: nowrap !important;
+      justify-content: space-between !important;
+      align-items: flex-start !important;
+      gap: 10pt !important;
+      background: none !important;
+      border: none !important;
+      border-radius: 0 !important;
+      padding: 0 !important;
+      cursor: default !important;
+      box-shadow: none !important;
+    }
+
+    .job-header.open {
+      border: none !important;
+      border-radius: 0 !important;
+    }
+
+    .job-title {
+      font-size: 11pt !important;
+      font-weight: 700 !important;
+      color: #000 !important;
+    }
+
+    .job-meta {
+      font-size: 10pt !important;
+      color: #333 !important;
+      margin-top: 2pt !important;
+    }
+
+    .job-dates {
+      font-size: 10pt !important;
+      color: #000 !important;
+      font-weight: 600 !important;
+      white-space: nowrap !important;
+    }
+
+    .job-chevron { display: none !important; }
+
+    .job-body {
+      display: block !important;
+      background: none !important;
+      border: none !important;
+      border-radius: 0 !important;
+      padding: 5pt 0 0 0 !important;
+      margin: 0 !important;
+    }
+
+    .job-summary-text {
+      font-size: 10pt !important;
+      font-style: normal !important;
+      color: #333 !important;
+      border: none !important;
+      padding: 0 0 6pt 0 !important;
+      margin: 0 0 6pt 0 !important;
+      line-height: 1.35 !important;
+    }
+
+    .sub-section-label {
+      font-size: 9pt !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.04em !important;
+      text-transform: uppercase !important;
+      color: #000 !important;
+      margin: 8pt 0 4pt 0 !important;
+    }
+
+    .ai-badge { display: none !important; }
+
+    ul.blist {
+      list-style: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+    ul.blist li {
+      font-size: 10pt !important;
+      color: #222 !important;
+      font-weight: 400 !important;
+      padding: 1pt 0 3pt 14pt !important;
+      line-height: 1.32 !important;
+      position: relative !important;
+    }
+    ul.blist li::before {
+      content: '•' !important;
+      position: absolute !important;
+      left: 0 !important;
+      color: #000 !important;
+      font-size: 11pt !important;
+      line-height: 1.25 !important;
+    }
+
+    ul.blist.sub { margin-top: 2pt !important; margin-bottom: 4pt !important; }
+    ul.blist.sub li {
+      font-size: 9.5pt !important;
+      color: #333 !important;
+      padding-left: 22pt !important;
+    }
+    ul.blist.sub li::before {
+      content: '◦' !important;
+      left: 6pt !important;
+      color: #444 !important;
+      font-size: 12pt !important;
+    }
+
+    .result-chip {
+      display: inline !important;
+      background: none !important;
+      border: none !important;
+      padding: 0 0.4em 0 0 !important;
+      margin: 0 !important;
+      font-size: 9.5pt !important;
+      font-weight: 600 !important;
+      color: #222 !important;
+    }
+
+    .skills-grid {
+      display: block !important;
+    }
+
+    .skill-card {
+      break-inside: avoid !important;
+      page-break-inside: avoid !important;
+      background: none !important;
+      border: none !important;
+      border-radius: 0 !important;
+      padding: 0 0 9pt 0 !important;
+      margin: 0 !important;
+      box-shadow: none !important;
+    }
+
+    .skill-card-label {
+      font-size: 10pt !important;
+      font-weight: 700 !important;
+      color: #000 !important;
+      margin: 0 0 4pt 0 !important;
+    }
+
+    .skill-item {
+      font-size: 9.75pt !important;
+      color: #222 !important;
+      padding: 1pt 0 1pt 14pt !important;
+      position: relative !important;
+    }
+
+    .skill-item .skill-dot { display: none !important; }
+    .skill-item::before {
+      content: '•' !important;
+      position: absolute !important;
+      left: 0 !important;
+      color: #000 !important;
+    }
+
+    .skill-card[style] {
+      background: none !important;
+      border: none !important;
+      padding-bottom: 0 !important;
+    }
+
+    .skill-card[style] .skill-card-label {
+      color: #000 !important;
+    }
+
+    .skill-card[style] div[style] {
+      font-family: Cambria, Georgia, serif !important;
+      color: #000 !important;
+      font-size: 10.5pt !important;
+    }
+
+    a {
+      color: #1a1a1a !important;
+      text-decoration: none !important;
     }
 
     .job-body,
     .cs-body {
       display: block !important;
-    }
-
-    .job-chevron { display: none !important; }
-
-    .stat-card,
-    .contact-card,
-    .job {
-      page-break-inside: avoid;
     }
   }
 </style>
@@ -784,8 +1051,9 @@
     <div class="hero-label">Data &amp; AI Leader · Asset Management</div>
     <h1 class="hero-name">Kevin<br><em>Maroney</em></h1>
     <div class="hero-title">Director-level · 12+ Years · Investment Data &amp; AI Platform Engineering</div>
+    <p class="resume-print-contact">Mendham, NJ · 908.577.6672 · kevin.m.maroney@gmail.com · marones13.github.io</p>
     <div class="hero-bio">
-      <p><em>This resume; built through Claude. This section; written by me.</em></p>
+      <p class="resume-screen-note"><em>This resume; built through Claude. This section; written by me.</em></p>
       <p>What a fun world we live in. Agentic workflows and AI services dramatically scale what we can deliver as data functions. What's the role of a data leader tomorrow:</p>
       <ul>
         <li>Set clarity on vision and expectations.</li>
