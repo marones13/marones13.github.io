@@ -80,6 +80,20 @@
     background: var(--electric-dim);
   }
 
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  nav .btn-secondary {
+    padding: 6px 14px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
   /* ── HERO ── */
   .hero {
     padding: 80px 40px 60px;
@@ -129,30 +143,6 @@
     line-height: 1.75;
     max-width: 540px;
   }
-
-  .hero-actions {
-    display: flex;
-    gap: 12px;
-    margin-top: 32px;
-    flex-wrap: wrap;
-  }
-
-  .btn-primary {
-    padding: 11px 24px;
-    background: var(--electric);
-    color: #0B1220;
-    border: none;
-    font-size: 13.5px;
-    font-weight: 500;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    border-radius: 6px;
-    transition: all 0.18s;
-    text-decoration: none;
-    display: inline-block;
-  }
-
-  .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
 
   .btn-secondary {
     padding: 11px 24px;
@@ -700,11 +690,14 @@
 <!-- NAV -->
 <nav>
   <span class="nav-name">Kevin Maroney</span>
-  <div class="nav-links">
-    <button class="nav-link active" onclick="showSection('experience', this)">Experience</button>
-    <button class="nav-link" onclick="showSection('skills', this)">Skills</button>
-    <button class="nav-link" onclick="showSection('leadership', this)">Leadership Portfolio</button>
-    <button class="nav-link" onclick="showSection('contact', this)">Contact</button>
+  <div class="nav-actions">
+    <div class="nav-links">
+      <button class="nav-link active" onclick="showSection('experience', this)">Experience</button>
+      <button class="nav-link" onclick="showSection('skills', this)">Skills</button>
+      <button class="nav-link" onclick="showSection('leadership', this)">Leadership Portfolio</button>
+      <button class="nav-link" onclick="showSection('contact', this)">Contact</button>
+    </div>
+    <a href="Kevin_Maroney_Resume.pdf" class="btn-secondary" download="Kevin_Maroney_Resume.pdf">Download PDF</a>
   </div>
 </nav>
 
@@ -715,10 +708,6 @@
     <h1 class="hero-name">Kevin<br><em>Maroney</em></h1>
     <div class="hero-title">Director-level · 12+ Years · Investment Data &amp; AI Platform Engineering</div>
     <p class="hero-bio"><em>This resume; built through Claude. This section; written by me.</em><br><br>In a world where we are turning over tasks that used to define us to agentic workflows, knowing when to differentiate — when to step in — is becoming increasingly important.<br><br>I have spent years building and leading the data infrastructure at name-brand asset managers. My differentiator is that my focus hasn't stopped at engineering the foundation. I've spent equal time on the analytics and AI solutions that touch end-users. This unique perspective enables me to prioritize what's going to move the needle while staying technically grounded.</p>
-    <div class="hero-actions">
-      <a href="https://bit.ly/Maroney_Leadership_Portfolio" class="btn-primary" target="_blank">Leadership Portfolio ↗</a>
-      <a href="Kevin_Maroney_Resume.pdf" class="btn-secondary" download="Kevin_Maroney_Resume.pdf">Download PDF</a>
-    </div>
   </div>
   <div class="stats-panel">
     <div class="stat-card">
