@@ -168,6 +168,7 @@
   }
 
   .btn-secondary:hover { background: var(--electric-dim); }
+  a.btn-secondary { text-decoration: none; display: inline-block; }
 
   /* ── STATS PANEL ── */
   .stats-panel {
@@ -563,111 +564,6 @@
     .stats-panel { grid-template-columns: repeat(2, 1fr); }
   }
 
-  /* ── ANNOTATION MODE ── */
-  .btn-comment-toggle {
-    padding: 6px 16px;
-    font-size: 13px;
-    font-weight: 400;
-    color: var(--amber);
-    background: none;
-    border: 1px solid rgba(255,187,69,0.3);
-    cursor: pointer;
-    border-radius: 6px;
-    transition: all 0.18s;
-    font-family: 'DM Sans', sans-serif;
-    letter-spacing: 0.3px;
-    margin-left: 12px;
-  }
-  .btn-comment-toggle:hover, .btn-comment-toggle.active {
-    background: var(--amber-dim);
-    border-color: rgba(255,187,69,0.6);
-  }
-  .btn-comment-toggle.active::before { content: '✓ '; }
-
-  body.comment-mode * { cursor: crosshair !important; }
-
-  .comment-target { position: relative; }
-
-  body.comment-mode .comment-target:hover::after {
-    content: '+ comment';
-    position: absolute;
-    top: 4px; right: 4px;
-    background: var(--amber);
-    color: #0B1220;
-    font-size: 10px; font-weight: 600;
-    letter-spacing: 1px; text-transform: uppercase;
-    padding: 3px 8px; border-radius: 4px;
-    pointer-events: none; z-index: 50;
-    font-family: 'DM Sans', sans-serif;
-  }
-  body.comment-mode .comment-target { outline: 1px dashed rgba(255,187,69,0.2); outline-offset: 3px; }
-  body.comment-mode .comment-target:hover { outline: 1px solid rgba(255,187,69,0.55); background: rgba(255,187,69,0.03); }
-
-  .comment-badge {
-    position: absolute; top: -10px; right: -10px; z-index: 60;
-    background: var(--amber); color: #0B1220;
-    width: 22px; height: 22px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 11px; font-weight: 700; cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-    transition: transform 0.15s; font-family: 'DM Sans', sans-serif;
-  }
-  .comment-badge:hover { transform: scale(1.15); }
-
-  .comment-popup {
-    position: fixed; z-index: 200;
-    background: #1A2535; border: 1px solid rgba(255,187,69,0.4);
-    border-radius: 12px; padding: 16px; width: 320px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.5); font-family: 'DM Sans', sans-serif;
-  }
-  .comment-popup-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-  .comment-popup-title { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--amber); }
-  .comment-popup-close { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 18px; line-height: 1; padding: 0; }
-  .comment-popup textarea {
-    width: 100%; background: #0B1220; border: 1px solid var(--border-bright);
-    border-radius: 8px; color: var(--text); font-size: 13.5px;
-    font-family: 'DM Sans', sans-serif; font-weight: 300;
-    padding: 10px 12px; resize: none; height: 90px; outline: none; line-height: 1.6;
-  }
-  .comment-popup textarea:focus { border-color: rgba(255,187,69,0.5); }
-  .comment-popup textarea::placeholder { color: var(--muted2); }
-  .comment-popup-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; gap: 8px; }
-  .comment-popup-save {
-    padding: 7px 18px; background: var(--amber); color: #0B1220;
-    border: none; border-radius: 6px; font-size: 13px; font-weight: 600;
-    cursor: pointer; font-family: 'DM Sans', sans-serif; transition: opacity 0.15s;
-  }
-  .comment-popup-save:hover { opacity: 0.88; }
-  .comment-popup-delete {
-    padding: 7px 14px; background: none; color: var(--muted);
-    border: 1px solid var(--border); border-radius: 6px; font-size: 12px;
-    cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.15s;
-  }
-  .comment-popup-delete:hover { color: #ff6b6b; border-color: rgba(255,107,107,0.4); }
-
-  .comment-sidebar {
-    position: fixed; right: 0; top: 56px; bottom: 0; width: 300px;
-    background: #111927; border-left: 1px solid var(--border);
-    z-index: 90; display: none; flex-direction: column; overflow: hidden;
-  }
-  .comment-sidebar.visible { display: flex; }
-  .comment-sidebar-header {
-    padding: 16px 20px; border-bottom: 1px solid var(--border);
-    font-size: 11px; font-weight: 600; letter-spacing: 2px;
-    text-transform: uppercase; color: var(--amber);
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .comment-sidebar-body { flex: 1; overflow-y: auto; padding: 12px 16px; }
-  .comment-note {
-    background: #162132; border: 1px solid var(--border);
-    border-left: 3px solid var(--amber); border-radius: 8px;
-    padding: 12px 14px; margin-bottom: 10px; cursor: pointer; transition: border-color 0.15s;
-  }
-  .comment-note:hover { border-left-color: #ffd280; }
-  .comment-note-section { font-size: 10px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted2); margin-bottom: 6px; }
-  .comment-note-text { font-size: 13px; color: var(--text); font-weight: 300; line-height: 1.55; }
-  .comment-empty { color: var(--muted2); font-size: 13px; font-style: italic; text-align: center; padding: 32px 16px; line-height: 1.6; }
-
   /* ── LEADERSHIP PORTFOLIO ── */
   .lp-intro {
     font-size: 15px; color: rgba(232,239,248,0.7); font-weight: 300; line-height: 1.75;
@@ -804,46 +700,16 @@
 <!-- NAV -->
 <nav>
   <span class="nav-name">Kevin Maroney</span>
-  <div style="display:flex; align-items:center;">
-    <div class="nav-links">
-      <button class="nav-link active" onclick="showSection('experience', this)">Experience</button>
-      <button class="nav-link" onclick="showSection('skills', this)">Skills</button>
-      <button class="nav-link" onclick="showSection('leadership', this)">Leadership Portfolio</button>
-      <button class="nav-link" onclick="showSection('contact', this)">Contact</button>
-    </div>
-    <button class="btn-comment-toggle" id="commentToggle" onclick="toggleCommentMode()">💬 Comment Mode</button>
-    <button class="btn-comment-toggle" id="sidebarToggle" onclick="toggleSidebar()" style="display:none; margin-left:6px;">Notes</button>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="showSection('experience', this)">Experience</button>
+    <button class="nav-link" onclick="showSection('skills', this)">Skills</button>
+    <button class="nav-link" onclick="showSection('leadership', this)">Leadership Portfolio</button>
+    <button class="nav-link" onclick="showSection('contact', this)">Contact</button>
   </div>
 </nav>
 
-<!-- COMMENT SIDEBAR -->
-<div class="comment-sidebar" id="commentSidebar">
-  <div class="comment-sidebar-header">
-    <span>📝 Your Notes</span>
-    <button onclick="exportComments()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-family:'DM Sans',sans-serif;">Export</button>
-  </div>
-  <div class="comment-sidebar-body" id="commentSidebarBody">
-    <div class="comment-empty">No comments yet.<br>Enable Comment Mode and click any section to annotate.</div>
-  </div>
-</div>
-
-<!-- COMMENT POPUP (hidden by default) -->
-<div class="comment-popup" id="commentPopup" style="display:none;">
-  <div class="comment-popup-header">
-    <span class="comment-popup-title">💬 Add Note</span>
-    <button class="comment-popup-close" onclick="closePopup()">×</button>
-  </div>
-  <textarea id="commentText" placeholder="What needs to change here? Be specific — I'll update the resume based on your notes."></textarea>
-  <div class="comment-popup-actions">
-    <button class="comment-popup-delete" id="deleteBtn" style="display:none;" onclick="deleteComment()">Delete</button>
-    <div style="margin-left:auto;">
-      <button class="comment-popup-save" onclick="saveComment()">Save Note</button>
-    </div>
-  </div>
-</div>
-
 <!-- HERO -->
-<div class="hero comment-target" data-section="Hero / Header">
+<div class="hero">
   <div>
     <div class="hero-label">Data &amp; AI Leader · Asset Management</div>
     <h1 class="hero-name">Kevin<br><em>Maroney</em></h1>
@@ -851,7 +717,7 @@
     <p class="hero-bio"><em>This resume; built through Claude. This section; written by me.</em><br><br>In a world where we are turning over tasks that used to define us to agentic workflows, knowing when to differentiate — when to step in — is becoming increasingly important.<br><br>I have spent years building and leading the data infrastructure at name-brand asset managers. My differentiator is that my focus hasn't stopped at engineering the foundation. I've spent equal time on the analytics and AI solutions that touch end-users. This unique perspective enables me to prioritize what's going to move the needle while staying technically grounded.</p>
     <div class="hero-actions">
       <a href="https://bit.ly/Maroney_Leadership_Portfolio" class="btn-primary" target="_blank">Leadership Portfolio ↗</a>
-      <button class="btn-secondary" onclick="window.print()">Download PDF</button>
+      <a href="Kevin_Maroney_Resume.pdf" class="btn-secondary" download="Kevin_Maroney_Resume.pdf">Download PDF</a>
     </div>
   </div>
   <div class="stats-panel">
@@ -875,7 +741,7 @@
 </div>
 
 <!-- BELIEFS BAR -->
-<div class="beliefs-bar comment-target" data-section="Beliefs Bar">
+<div class="beliefs-bar">
   <div class="beliefs-inner">
     <span class="beliefs-label">I believe:</span>
     <span class="belief-chip">People First — <strong>Culture is earned</strong></span>
@@ -896,7 +762,7 @@
     <div class="timeline">
 
       <!-- Carlyle -->
-      <div class="job comment-target" data-section="Carlyle Group Role">
+      <div class="job">
         <div class="job-dot"></div>
         <div class="job-header open" onclick="toggleJob(this)">
           <div>
@@ -948,7 +814,7 @@
       </div>
 
       <!-- EFG -->
-      <div class="job comment-target" data-section="EFG Role">
+      <div class="job">
         <div class="job-dot"></div>
         <div class="job-header" onclick="toggleJob(this)">
           <div>
@@ -977,7 +843,7 @@
       </div>
 
       <!-- Apollo -->
-      <div class="job comment-target" data-section="Apollo / Keyrus Role">
+      <div class="job">
         <div class="job-dot dim"></div>
         <div class="job-header" onclick="toggleJob(this)">
           <div>
@@ -1008,7 +874,7 @@
       </div>
 
       <!-- T Rowe -->
-      <div class="job comment-target" data-section="T. Rowe Price Role">
+      <div class="job">
         <div class="job-dot dim"></div>
         <div class="job-header" onclick="toggleJob(this)">
           <div>
@@ -1040,7 +906,7 @@
       </div>
 
       <!-- Keyrus Internal -->
-      <div class="job comment-target" data-section="Keyrus Internal / Earlier Roles">
+      <div class="job">
         <div class="job-dot dim"></div>
         <div class="job-header" onclick="toggleJob(this)">
           <div>
@@ -1066,7 +932,7 @@
   </div><!-- /experience -->
 
   <!-- SKILLS -->
-  <div class="section comment-target" data-section="Skills Section" id="section-skills">
+  <div class="section" id="section-skills">
     <div class="section-tag">// capabilities</div>
     <div class="section-heading">Skills &amp; Technologies</div>
     <div class="skills-grid">
@@ -1419,163 +1285,6 @@
     header.classList.toggle('open', !isOpen);
     body.classList.toggle('open', !isOpen);
   }
-
-  /* ── ANNOTATION ENGINE ── */
-  const STORAGE_KEY = 'resume_comments_v1';
-  let commentMode = false;
-  let currentTarget = null;
-  let currentKey = null;
-
-  function getComments() {
-    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch(e) { return {}; }
-  }
-  function saveComments(data) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-  }
-
-  function toggleCommentMode() {
-    commentMode = !commentMode;
-    document.body.classList.toggle('comment-mode', commentMode);
-    const btn = document.getElementById('commentToggle');
-    btn.classList.toggle('active', commentMode);
-    btn.textContent = commentMode ? '✓ Comment Mode' : '💬 Comment Mode';
-    const sidebarBtn = document.getElementById('sidebarToggle');
-    sidebarBtn.style.display = commentMode ? 'inline-block' : 'none';
-    if (commentMode) {
-      renderSidebar();
-      document.getElementById('commentSidebar').classList.add('visible');
-    } else {
-      closePopup();
-      document.getElementById('commentSidebar').classList.remove('visible');
-    }
-  }
-
-  function toggleSidebar() {
-    document.getElementById('commentSidebar').classList.toggle('visible');
-  }
-
-  /* Attach click handlers to all comment-target elements */
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.comment-target').forEach(el => {
-      el.addEventListener('click', e => {
-        if (!commentMode) return;
-        // Don't fire if clicking a button/input inside
-        if (e.target.closest('button, input, textarea, a')) return;
-        e.stopPropagation();
-        openPopup(el, e);
-      });
-      renderBadge(el);
-    });
-  });
-
-  function sectionKey(el) {
-    return el.dataset.section || el.id || el.className.split(' ')[0];
-  }
-
-  function openPopup(el, e) {
-    currentTarget = el;
-    currentKey = sectionKey(el);
-    const popup = document.getElementById('commentPopup');
-    const comments = getComments();
-    const existing = comments[currentKey];
-    document.getElementById('commentText').value = existing ? existing.text : '';
-    document.getElementById('deleteBtn').style.display = existing ? 'inline-block' : 'none';
-    document.querySelector('.comment-popup-title').textContent = '💬 ' + (currentKey);
-
-    // Position popup near click but keep in viewport
-    const x = Math.min(e.clientX, window.innerWidth - 340);
-    const y = Math.min(e.clientY, window.innerHeight - 200);
-    popup.style.left = x + 'px';
-    popup.style.top = y + 'px';
-    popup.style.display = 'block';
-    setTimeout(() => document.getElementById('commentText').focus(), 50);
-  }
-
-  function closePopup() {
-    document.getElementById('commentPopup').style.display = 'none';
-    currentTarget = null; currentKey = null;
-  }
-
-  function saveComment() {
-    const text = document.getElementById('commentText').value.trim();
-    if (!text || !currentKey) { closePopup(); return; }
-    const comments = getComments();
-    comments[currentKey] = { text, section: currentKey, ts: new Date().toISOString() };
-    saveComments(comments);
-    renderBadge(currentTarget);
-    renderSidebar();
-    closePopup();
-  }
-
-  function deleteComment() {
-    if (!currentKey) return;
-    const comments = getComments();
-    delete comments[currentKey];
-    saveComments(comments);
-    renderBadge(currentTarget);
-    renderSidebar();
-    closePopup();
-  }
-
-  function renderBadge(el) {
-    // Remove existing badge
-    const existing = el.querySelector(':scope > .comment-badge');
-    if (existing) existing.remove();
-    const key = sectionKey(el);
-    const comments = getComments();
-    if (comments[key]) {
-      const badge = document.createElement('div');
-      badge.className = 'comment-badge';
-      badge.title = comments[key].text;
-      badge.textContent = '✎';
-      badge.addEventListener('click', e => {
-        e.stopPropagation();
-        openPopup(el, e);
-      });
-      el.appendChild(badge);
-    }
-  }
-
-  function renderSidebar() {
-    const body = document.getElementById('commentSidebarBody');
-    const comments = getComments();
-    const keys = Object.keys(comments);
-    if (keys.length === 0) {
-      body.innerHTML = '<div class="comment-empty">No comments yet.<br>Click any highlighted section to annotate.</div>';
-      return;
-    }
-    body.innerHTML = keys.map(k => `
-      <div class="comment-note" onclick="focusSection('${k}')">
-        <div class="comment-note-section">${comments[k].section}</div>
-        <div class="comment-note-text">${escHtml(comments[k].text)}</div>
-      </div>
-    `).join('');
-  }
-
-  function focusSection(key) {
-    const el = document.querySelector(`[data-section="${key}"]`);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
-
-  function escHtml(s) {
-    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  }
-
-  function exportComments() {
-    const comments = getComments();
-    const lines = Object.values(comments).map(c => `[${c.section}]\n${c.text}`).join('\n\n---\n\n');
-    const blob = new Blob([lines || 'No comments.'], { type: 'text/plain' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'resume_feedback.txt';
-    a.click();
-  }
-
-  // Close popup on Escape
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closePopup();
-    if (e.key === 'Enter' && e.metaKey && document.getElementById('commentPopup').style.display !== 'none') saveComment();
-  });
 </script>
 </body>
 </html>
