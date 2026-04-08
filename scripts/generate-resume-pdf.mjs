@@ -1,6 +1,8 @@
 /**
- * Renders index.html to Kevin_Maroney_Resume.pdf using Chromium print.
- * Run from repo root:
+ * Renders resume.html (traditional résumé layout) to Kevin_Maroney_Resume.pdf.
+ * Keep résumé copy aligned with index.html; edit resume.html when you refresh the PDF.
+ *
+ * From repo root:
  *   npm install
  *   PLAYWRIGHT_BROWSERS_PATH=.playwright-browsers npx playwright install chromium
  *   npm run build:pdf
@@ -66,20 +68,18 @@ function serveStatic(publicDir) {
 
 const server = await serveStatic(root);
 const { port } = server.address();
-const url = `http://127.0.0.1:${port}/index.html`;
+const url = `http://127.0.0.1:${port}/resume.html`;
 
 const browser = await chromium.launch({ headless: true });
 const page = await browser.newPage();
 await page.goto(url, { waitUntil: "networkidle", timeout: 120000 });
-await page.emulateMedia({ media: "print" });
 
 const outPath = path.join(root, "Kevin_Maroney_Resume.pdf");
 await page.pdf({
   path: outPath,
   format: "Letter",
   printBackground: false,
-  preferCSSPageSize: true,
-  margin: { top: "0", right: "0", bottom: "0", left: "0" },
+  margin: { top: "0.5in", right: "0.65in", bottom: "0.5in", left: "0.65in" },
 });
 
 await browser.close();

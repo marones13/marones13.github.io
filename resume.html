@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kevin Maroney — Résumé</title>
+<style>
+  /* Traditional résumé — source for Kevin_Maroney_Resume.pdf (npm run build:pdf) */
+  @page { margin: 0.55in 0.7in; }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: Cambria, "Times New Roman", Times, serif;
+    font-size: 11pt;
+    line-height: 1.32;
+    color: #111;
+    background: #fff;
+    max-width: 7.2in;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 0.85rem;
+    padding-bottom: 0.65rem;
+    border-bottom: 2px solid #222;
+  }
+
+  .name {
+    font-size: 22pt;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #000;
+    margin: 0;
+  }
+
+  .headline {
+    font-size: 10.5pt;
+    font-weight: 600;
+    margin: 0.25rem 0 0.35rem;
+    color: #222;
+  }
+
+  .contact {
+    font-size: 10pt;
+    color: #333;
+  }
+
+  .contact a {
+    color: #111;
+    text-decoration: none;
+  }
+
+  .summary {
+    font-size: 10.5pt;
+    text-align: left;
+    margin-bottom: 0.75rem;
+    color: #222;
+  }
+
+  .summary p + p { margin-top: 0.45rem; }
+
+  h2 {
+    font-family: Calibri, "Segoe UI", Arial, sans-serif;
+    font-size: 10.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #000;
+    border-bottom: 1px solid #333;
+    padding-bottom: 0.15rem;
+    margin: 0.85rem 0 0.45rem;
+  }
+
+  h2:first-of-type { margin-top: 0.35rem; }
+
+  .role {
+    margin-top: 0.55rem;
+    page-break-inside: avoid;
+  }
+
+  .role-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .role-title {
+    font-weight: 700;
+    font-size: 10.8pt;
+    color: #000;
+  }
+
+  .role-org {
+    font-size: 10.5pt;
+    color: #333;
+    font-style: italic;
+    margin-top: 0.1rem;
+  }
+
+  .role-dates {
+    font-size: 10.5pt;
+    font-weight: 600;
+    white-space: nowrap;
+    color: #000;
+  }
+
+  .role-intro {
+    font-size: 10.5pt;
+    margin: 0.35rem 0 0.3rem;
+    color: #222;
+  }
+
+  ul {
+    margin: 0.15rem 0 0.15rem 1.15rem;
+    padding: 0;
+  }
+
+  li {
+    margin: 0.15rem 0;
+    padding-left: 0.15rem;
+  }
+
+  .metrics {
+    font-size: 10pt;
+    font-weight: 600;
+    color: #222;
+    margin: 0.35rem 0 0.15rem;
+  }
+
+  .client {
+    font-size: 10.3pt;
+    font-weight: 700;
+    margin: 0.35rem 0 0.15rem;
+    color: #000;
+  }
+
+  .skills-block {
+    font-size: 10.5pt;
+    margin: 0.25rem 0;
+  }
+
+  .skills-block dt {
+    font-weight: 700;
+    margin-top: 0.35rem;
+    color: #000;
+  }
+
+  .skills-block dd {
+    margin: 0.1rem 0 0 0;
+    color: #222;
+  }
+
+  .education {
+    font-size: 10.5pt;
+    margin-top: 0.35rem;
+  }
+
+  .education strong { font-size: 10.8pt; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1 class="name">Kevin Maroney</h1>
+  <div class="headline">Data &amp; AI Leader · Asset Management · Director-Level</div>
+  <div class="contact">
+    Mendham, NJ &nbsp;|&nbsp; 908.577.6672 &nbsp;|&nbsp; kevin.m.maroney@gmail.com &nbsp;|&nbsp;
+    <a href="https://marones13.github.io/">marones13.github.io</a>
+  </div>
+</header>
+
+<section class="summary">
+  <p>Director-level data and analytics leader with 12+ years across brand-name asset managers and complex global organizations. Strength at the intersection of platform engineering, analytics, product-facing AI, and operating model — aligning what ships with what the business actually uses.</p>
+  <p>Belief: clarity of vision, T-shaped judgment, and unusually strong questioning beat heroics; build teams and systems that reward imagination, depth on demand, and retained top talent.</p>
+</section>
+
+<h2>Experience</h2>
+
+<div class="role">
+  <div class="role-top">
+    <div>
+      <div class="role-title">Data &amp; Analytics Lead, Investor Relations</div>
+      <div class="role-org">The Carlyle Group · New York, NY</div>
+    </div>
+    <div class="role-dates">2024 – Present</div>
+  </div>
+  <p class="role-intro">Lead data and analytics strategy for Investor Relations alongside client-facing and product leadership (Global Wealth &amp; Institutional). Co-sponsor TEMPO, the firm’s AI-native initiative for how IR insights are produced and consumed.</p>
+  <ul>
+    <li>Unified IR roadmap across use cases, consumption patterns, transformations, and source systems — from technical delivery to channel priorities.</li>
+    <li>Shipped <strong>Darwin</strong>, an agentic dbt + Cursor workflow: ~50% faster from requirement to merged PR; integrated Jira, GitHub PRs, automated testing, and Confluence product docs.</li>
+    <li>Built unified IR semantic layer (dbt) on Snowflake; integrated third-party / CRM-aligned entities (e.g., Preqin onboarding with entity resolution).</li>
+    <li><strong>TEMPO / AI layer:</strong> MCP-style orchestration for LLM tools; onboarded Claude with reusable IR skills; delivered LP Compass (LP scoring &amp; targeting), Next Best Call (Salesforce, GW), and Redemption Risk (behavioral propensity).</li>
+  </ul>
+  <p class="metrics">Impact: 50% reduction in requirement-to-PR cycle; 120% WAU lift (Institutional Suite); firm-wide business impact under measurement.</p>
+</div>
+
+<div class="role">
+  <div class="role-top">
+    <div>
+      <div class="role-title">VP, Data Analytics &amp; Data Engineering</div>
+      <div class="role-org">ESL FACEIT Group (EFG) · New York, NY</div>
+    </div>
+    <div class="role-dates">2024</div>
+  </div>
+  <ul>
+    <li>Built “The Vault” — Snowflake + dbt + Tableau — tripling business use of analytics post-merger.</li>
+    <li>Deployed conversational AI for self-serve access; ~25% fewer ad hoc reporting tickets.</li>
+    <li>Led 23 analysts and engineers across regions; pod model with 90%+ stakeholder satisfaction.</li>
+    <li>Valuation framework for monetizable broadcast moments — $4M+ Gross Media Value identified.</li>
+  </ul>
+  <p class="metrics">$4M+ GMV · $750K incremental ad revenue · 25% reporting reduction · 90%+ satisfaction</p>
+</div>
+
+<div class="role">
+  <div class="role-top">
+    <div>
+      <div class="role-title">Senior Director, Data &amp; Analytics</div>
+      <div class="role-org">Keyrus — Apollo Global Management (client engagement)</div>
+    </div>
+    <div class="role-dates">2021 – 2024</div>
+  </div>
+  <div class="client">Apollo Global Management</div>
+  <ul>
+    <li>Owned CPS distribution data strategy end-to-end — architecture, prioritization, and adoption for the firm’s first enterprise data product suite.</li>
+    <li>Designed cross-functional operating model with CPS COO across Data, Digital, and Enablement.</li>
+    <li>Client / product MDM across 7+ sources (CRM, portfolio, ops); extended analytics into private credit risk views.</li>
+  </ul>
+  <p class="metrics">8% shorter sales cycle · improved CPS budget/AUM ratio · first cross-channel visibility</p>
+</div>
+
+<div class="role">
+  <div class="role-top">
+    <div>
+      <div class="role-title">Senior Director, Data &amp; Analytics</div>
+      <div class="role-org">Keyrus — T. Rowe Price (client engagement)</div>
+    </div>
+    <div class="role-dates">2017 – 2020</div>
+  </div>
+  <div class="client">T. Rowe Price</div>
+  <ul>
+    <li>Delivered MVP Snowflake platform in six months; rolling 12-month roadmap on people, process, and tech.</li>
+    <li>Partnered with Sales on coverage and tiering; migrated legacy analytics with modern modeling.</li>
+    <li>Enterprise data landscape mapping; stood up governance with sustainable operating cadence.</li>
+  </ul>
+  <p class="metrics">85% WAU · ~1,200 hrs/yr saved · +25% forecast accuracy · +30% attribution accuracy</p>
+</div>
+
+<div class="role">
+  <div class="role-top">
+    <div>
+      <div class="role-title">Senior Director — Internal Leadership &amp; Delivery</div>
+      <div class="role-org">Keyrus · Also: BNY (2016), Bank of America (2013–2015)</div>
+    </div>
+    <div class="role-dates">2013 – 2024</div>
+  </div>
+  <ul>
+    <li>Directed portfolios exceeding half of Americas delivery revenue; cross-vertical analytics and transformation.</li>
+    <li>Led 20+ consultants; coached senior leaders; culture built on direct feedback.</li>
+    <li>CDO- and C-suite-facing strategy, roadmaps, and embedded team design; periodic CEO-of-Americas staff on growth.</li>
+  </ul>
+</div>
+
+<h2>Skills</h2>
+<dl class="skills-block">
+  <dt>AI &amp; agentic</dt>
+  <dd>MCP architecture, agentic workflows (Darwin), LLM deployment, Claude / Anthropic, OpenAI, Gemini</dd>
+  <dt>Data platform</dt>
+  <dd>Snowflake, Databricks, dbt, Fivetran, Airbyte, Airflow, AWS, Azure, streaming, lakehouse / vault / mesh modeling</dd>
+  <dt>Engineering &amp; governance</dt>
+  <dd>Python, SQL, GitHub, CI/CD, lineage, Jira, Confluence, Semarchy, Metaplane</dd>
+  <dt>Leadership &amp; delivery</dt>
+  <dd>20–30 FTE global data orgs, IR / investment data, COO partnership, platform strategy, operating model design</dd>
+  <dt>BI</dt>
+  <dd>Tableau, Power BI, Looker, Qlik, Alteryx</dd>
+</dl>
+
+<h2>Education</h2>
+<div class="education">
+  <strong>B.S. Finance</strong> — Lehigh University, Class of 2013
+</div>
+
+</body>
+</html>
