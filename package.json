@@ -1,0 +1,11 @@
+{
+  "name": "marones13-github-io",
+  "private": true,
+  "scripts": {
+    "prepare:chromium": "PLAYWRIGHT_BROWSERS_PATH=.playwright-browsers playwright install chromium",
+    "build:pdf": "node scripts/generate-resume-pdf.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.50.0"
+  }
+}

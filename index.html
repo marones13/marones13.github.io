@@ -702,6 +702,52 @@
     padding-bottom: 12px; border-bottom: 1px solid var(--border);
   }
   .lp-sub-heading:first-of-type { margin-top: 0; }
+
+  /* ── PRINT / PDF (generated via: npm run build:pdf) ── */
+  @media print {
+    nav,
+    .beliefs-bar { display: none !important; }
+
+    /* Portfolio stays on the site; PDF is a standard résumé length (synced with live copy). */
+    #section-leadership { display: none !important; }
+
+    body.hide-hero-main .hero {
+      display: grid !important;
+    }
+
+    .hero {
+      max-width: none;
+      margin: 0;
+      padding: 32px 40px 40px;
+    }
+
+    .content {
+      max-width: none;
+      padding: 0 40px 48px;
+    }
+
+    .section {
+      display: block !important;
+      padding-top: 32px;
+    }
+
+    .section-heading {
+      page-break-after: avoid;
+    }
+
+    .job-body,
+    .cs-body {
+      display: block !important;
+    }
+
+    .job-chevron { display: none !important; }
+
+    .stat-card,
+    .contact-card,
+    .job {
+      page-break-inside: avoid;
+    }
+  }
 </style>
 </head>
 <body>
