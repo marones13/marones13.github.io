@@ -105,6 +105,10 @@
     align-items: start;
   }
 
+  body.hide-hero-main .hero {
+    display: none;
+  }
+
   .hero-label {
     font-size: 11px;
     font-weight: 500;
@@ -1285,6 +1289,11 @@
     document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
     document.getElementById('section-' + id).classList.add('active');
     btn.classList.add('active');
+
+    const hideHero = id === 'skills' || id === 'leadership';
+    document.body.classList.toggle('hide-hero-main', hideHero);
+
+    window.scrollTo(0, 0);
   }
 
   function toggleJob(header) {
