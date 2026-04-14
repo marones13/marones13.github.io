@@ -2,7 +2,8 @@
 # Swap the live site file: copies a profile HTML over index.html.
 #
 # Usage (from repo root):
-#   ./scripts/switch-profile.sh baseline.html
+#   ./scripts/switch-profile.sh baseline.html      # older snapshot
+#   ./scripts/switch-profile.sh asset-management.html   # AM-focused hero copy
 #   ./scripts/switch-profile.sh my-opportunity.html
 #
 # Before overwriting, the current index.html is saved to profiles/.last-index.html
