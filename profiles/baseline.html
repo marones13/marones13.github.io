@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kevin Maroney — Interactive Resume</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0B1220;
+    --surface: #111927;
+    --surface2: #162132;
+    --border: rgba(255,255,255,0.07);
+    --border-bright: rgba(255,255,255,0.14);
+    --electric: #4DC9FF;
+    --electric-dim: rgba(77,201,255,0.15);
+    --electric-glow: rgba(77,201,255,0.08);
+    --green: #3DDA84;
+    --green-dim: rgba(61,218,132,0.15);
+    --amber: #FFBB45;
+    --amber-dim: rgba(255,187,69,0.12);
+    --text: #E8EFF8;
+    --muted: #7A8CA0;
+    --muted2: #4A5A6A;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(11,18,32,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    height: 56px;
+  }
+
+  .nav-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    color: white;
+    letter-spacing: 0.3px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 4px;
+  }
+
+  .nav-link {
+    padding: 6px 16px;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.18s;
+    font-family: 'DM Sans', sans-serif;
+    letter-spacing: 0.3px;
+  }
+
+  .nav-link:hover, .nav-link.active {
+    color: var(--electric);
+    background: var(--electric-dim);
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  nav .btn-secondary {
+    padding: 6px 14px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 80px 40px 60px;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 60px;
+    align-items: start;
+  }
+
+  body.hide-hero-main .hero {
+    display: none;
+  }
+
+  .hero-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--electric);
+    margin-bottom: 16px;
+  }
+
+  .hero-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 64px;
+    font-weight: 400;
+    line-height: 1.0;
+    color: white;
+    margin-bottom: 8px;
+  }
+
+  .hero-name em {
+    color: var(--electric);
+    font-style: italic;
+  }
+
+  .hero-title {
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--muted);
+    margin-bottom: 28px;
+    letter-spacing: 0.2px;
+  }
+
+  .hero-bio {
+    font-size: 15.5px;
+    font-weight: 300;
+    color: rgba(232,239,248,0.75);
+    line-height: 1.75;
+    max-width: 540px;
+  }
+
+  .hero-bio p { margin: 0 0 1em 0; }
+  .hero-bio > :last-child { margin-bottom: 0; }
+
+  .hero-bio ul {
+    margin: 0 0 1em 0;
+    padding-left: 1.2em;
+    list-style: disc;
+  }
+
+  .hero-bio li {
+    margin-bottom: 0.4em;
+    padding-left: 0.2em;
+  }
+
+  .hero-bio li:last-child { margin-bottom: 0; }
+
+  .btn-secondary {
+    padding: 11px 24px;
+    background: none;
+    color: var(--electric);
+    border: 1px solid rgba(77,201,255,0.4);
+    font-size: 13.5px;
+    font-weight: 400;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    border-radius: 6px;
+    transition: all 0.18s;
+  }
+
+  .btn-secondary:hover { background: var(--electric-dim); }
+  a.btn-secondary { text-decoration: none; display: inline-block; }
+
+  /* ── STATS PANEL ── */
+  .stats-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .stat-card {
+    background: var(--surface2);
+    border-radius: 10px;
+    padding: 18px 16px;
+    border: 1px solid var(--border);
+    transition: border-color 0.2s;
+  }
+
+  .stat-card:hover { border-color: var(--border-bright); }
+
+  .stat-value {
+    font-family: 'DM Serif Display', serif;
+    font-size: 30px;
+    color: var(--electric);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 11.5px;
+    color: var(--muted);
+    font-weight: 400;
+    line-height: 1.35;
+  }
+
+  /* ── BELIEFS ── */
+  .beliefs-bar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+  }
+
+  .beliefs-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 18px 0;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .beliefs-label {
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted2);
+    white-space: nowrap;
+  }
+
+  .belief-chip {
+    font-size: 12.5px;
+    font-weight: 300;
+    color: rgba(232,239,248,0.6);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 5px 14px;
+    border-radius: 100px;
+    font-style: italic;
+    transition: all 0.18s;
+  }
+
+  .belief-chip:hover {
+    background: var(--electric-dim);
+    border-color: rgba(77,201,255,0.3);
+    color: var(--electric);
+  }
+
+  .belief-chip strong { font-style: normal; font-weight: 500; }
+
+  /* ── SECTIONS ── */
+  .content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 40px 80px;
+  }
+
+  .section {
+    padding-top: 72px;
+    display: none;
+  }
+
+  .section.active { display: block; }
+
+  .section-tag {
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--electric);
+    margin-bottom: 8px;
+  }
+
+  .section-heading {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px;
+    font-weight: 400;
+    color: white;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ── TIMELINE JOBS ── */
+  .timeline {
+    position: relative;
+    padding-left: 32px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: linear-gradient(180deg, var(--electric) 0%, var(--border) 100%);
+  }
+
+  .job {
+    position: relative;
+    margin-bottom: 12px;
+  }
+
+  .job-dot {
+    position: absolute;
+    left: -38px;
+    top: 20px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--electric);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 0 2px var(--electric);
+  }
+
+  .job-dot.dim {
+    background: var(--muted2);
+    box-shadow: 0 0 0 2px var(--muted2);
+  }
+
+  .job-header {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .job-header:hover {
+    border-color: var(--border-bright);
+    background: var(--surface2);
+  }
+
+  .job-header.open {
+    border-color: rgba(77,201,255,0.3);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .job-title { font-size: 15px; font-weight: 500; color: white; }
+  .job-meta { font-size: 12.5px; color: var(--electric); font-weight: 400; margin-top: 2px; }
+  .job-dates { font-size: 12px; color: var(--muted); white-space: nowrap; flex-shrink: 0; text-align: right; }
+
+  .job-chevron {
+    width: 18px; height: 18px;
+    fill: none;
+    stroke: var(--muted);
+    stroke-width: 2;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+
+  .job-header.open .job-chevron { transform: rotate(180deg); stroke: var(--electric); }
+
+  .job-body {
+    background: var(--surface);
+    border: 1px solid rgba(77,201,255,0.3);
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    padding: 24px 28px 20px;
+    display: none;
+    animation: slideDown 0.22s ease;
+  }
+
+  .job-body.open { display: block; }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .job-summary-text {
+    font-size: 14px;
+    color: rgba(232,239,248,0.65);
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sub-section-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted2);
+    margin: 16px 0 10px;
+  }
+
+  ul.blist { list-style: none; padding: 0; }
+  ul.blist li {
+    font-size: 13.5px;
+    color: rgba(232,239,248,0.8);
+    padding: 5px 0 5px 20px;
+    position: relative;
+    line-height: 1.55;
+    font-weight: 300;
+  }
+  ul.blist li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--electric);
+    font-size: 16px;
+    line-height: 1.3;
+  }
+
+  ul.blist.sub li { font-size: 12.5px; color: var(--muted); padding-left: 28px; }
+  ul.blist.sub li::before { content: '·'; color: var(--muted2); left: 14px; }
+
+  .result-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--green-dim);
+    border: 1px solid rgba(61,218,132,0.25);
+    color: var(--green);
+    font-size: 12.5px;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 100px;
+    margin: 4px 4px 4px 0;
+  }
+
+  .ai-badge {
+    display: inline-block;
+    background: var(--electric-dim);
+    border: 1px solid rgba(77,201,255,0.35);
+    color: var(--electric);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  .client-block {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 12px 0;
+  }
+
+  .client-block-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+    margin-bottom: 8px;
+  }
+
+  .client-block-results {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  /* ── SKILLS SECTION ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  .skill-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+    transition: border-color 0.2s;
+  }
+
+  .skill-card:hover { border-color: var(--border-bright); }
+
+  .skill-card-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--electric);
+    margin-bottom: 14px;
+  }
+
+  .skill-item {
+    font-size: 13.5px;
+    color: rgba(232,239,248,0.8);
+    padding: 5px 0;
+    border-bottom: 1px solid var(--border);
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .skill-item:last-child { border-bottom: none; }
+
+  .skill-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--electric);
+    flex-shrink: 0;
+  }
+
+  .skill-dot.green { background: var(--green); }
+  .skill-dot.amber { background: var(--amber); }
+
+  /* ── CONTACT SECTION ── */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    max-width: 600px;
+  }
+
+  .contact-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px 24px;
+  }
+
+  .contact-label {
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted2);
+    margin-bottom: 8px;
+  }
+
+  .contact-value {
+    font-size: 15px;
+    color: white;
+    font-weight: 400;
+  }
+
+  .contact-value a { color: var(--electric); text-decoration: none; }
+  .contact-value a:hover { text-decoration: underline; }
+
+  @media (max-width: 800px) {
+    .hero { grid-template-columns: 1fr; padding: 48px 24px 40px; }
+    .hero-name { font-size: 48px; }
+    .content { padding: 0 24px 60px; }
+    nav { padding: 0 24px; }
+    .beliefs-bar { padding: 0 24px; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .stats-panel { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ── LEADERSHIP PORTFOLIO ── */
+  .lp-intro {
+    font-size: 15px; color: rgba(232,239,248,0.7); font-weight: 300; line-height: 1.75;
+    max-width: 700px; margin-bottom: 40px;
+  }
+
+  /* Career timeline */
+  .career-timeline {
+    display: flex; gap: 0; margin-bottom: 48px; overflow-x: auto;
+    padding-bottom: 8px;
+  }
+  .career-node {
+    flex: 1; min-width: 110px; position: relative;
+    padding: 16px 16px 16px 0;
+  }
+  .career-node::before {
+    content: ''; position: absolute; top: 28px; left: 0; right: -1px;
+    height: 2px; background: var(--border);
+  }
+  .career-node:first-child::before { left: 0; }
+  .career-node.current::before { background: linear-gradient(90deg, var(--border), var(--electric)); }
+  .career-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--muted2); border: 2px solid var(--bg);
+    box-shadow: 0 0 0 2px var(--muted2);
+    margin-bottom: 10px; position: relative; z-index: 1;
+  }
+  .career-node.current .career-dot {
+    background: var(--electric); box-shadow: 0 0 0 2px var(--electric);
+  }
+  .career-node.highlight .career-dot {
+    background: var(--green); box-shadow: 0 0 0 2px var(--green);
+  }
+  .career-year { font-size: 10px; color: var(--muted2); font-weight: 500; letter-spacing: 1px; margin-bottom: 4px; }
+  .career-role { font-size: 12px; color: white; font-weight: 500; line-height: 1.3; margin-bottom: 2px; }
+  .career-co   { font-size: 11px; color: var(--electric); font-weight: 300; }
+
+  /* Principle cards */
+  .principles-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; margin-bottom: 48px;
+  }
+  .principle-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px; transition: border-color 0.2s;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .principle-card:hover { border-color: var(--border-bright); }
+  .principle-icon { font-size: 22px; line-height: 1; }
+  .principle-name { font-size: 13px; font-weight: 600; color: white; }
+  .principle-desc { font-size: 12.5px; color: rgba(232,239,248,0.6); font-weight: 300; line-height: 1.5; flex: 1; }
+  .principle-quote {
+    font-size: 11.5px; color: var(--electric); font-style: italic;
+    border-left: 2px solid rgba(77,201,255,0.35); padding-left: 10px; line-height: 1.5; margin-top: 4px;
+  }
+
+  /* Case study cards — same job accordion style */
+  .cs-header {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px 24px; cursor: pointer;
+    transition: all 0.2s; display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  }
+  .cs-header:hover { border-color: var(--border-bright); background: var(--surface2); }
+  .cs-header.open { border-color: rgba(77,201,255,0.3); border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+  .cs-body {
+    background: var(--surface); border: 1px solid rgba(77,201,255,0.3);
+    border-top: none; border-radius: 0 0 12px 12px;
+    padding: 24px 28px 20px; display: none; animation: slideDown 0.22s ease;
+  }
+  .cs-body.open { display: block; }
+  .cs-tag {
+    font-size: 10px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted2); margin-bottom: 4px;
+  }
+  .cs-title { font-size: 15px; font-weight: 500; color: white; }
+  .cs-meta { font-size: 12.5px; color: var(--electric); margin-top: 2px; }
+
+  /* Stat callout row */
+  .stat-row {
+    display: flex; flex-wrap: wrap; gap: 12px; margin: 16px 0;
+  }
+  .stat-callout {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px 18px; min-width: 120px; flex: 1;
+  }
+  .stat-callout-val {
+    font-family: 'DM Serif Display', serif; font-size: 26px; color: var(--electric); line-height: 1;
+  }
+  .stat-callout-val.green { color: var(--green); }
+  .stat-callout-val.amber { color: var(--amber); }
+  .stat-callout-label { font-size: 11px; color: var(--muted); line-height: 1.35; margin-top: 4px; }
+
+  /* Playbook columns */
+  .playbook-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 8px;
+  }
+  @media(max-width:800px) { .playbook-grid { grid-template-columns: 1fr; } }
+  .playbook-col {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px;
+  }
+  .playbook-col-label {
+    font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--electric); margin-bottom: 14px;
+  }
+  .playbook-item {
+    font-size: 13px; color: rgba(232,239,248,0.75); font-weight: 300;
+    padding: 6px 0; border-bottom: 1px solid var(--border); line-height: 1.45;
+  }
+  .playbook-item:last-child { border-bottom: none; }
+  .playbook-item strong { color: white; font-weight: 500; }
+
+  /* Philosophy */
+  .philosophy-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin-top: 8px;
+  }
+  .philosophy-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 22px;
+    transition: border-color 0.2s;
+  }
+  .philosophy-card:hover { border-color: rgba(77,201,255,0.25); }
+  .philosophy-card-icon { font-size: 20px; margin-bottom: 10px; }
+  .philosophy-card-title { font-size: 14px; font-weight: 500; color: white; margin-bottom: 8px; }
+  .philosophy-card-text { font-size: 13px; color: rgba(232,239,248,0.65); font-weight: 300; line-height: 1.6; }
+
+  .lp-sub-heading {
+    font-family: 'DM Serif Display', serif; font-size: 22px; color: white;
+    margin-bottom: 16px; margin-top: 40px;
+    padding-bottom: 12px; border-bottom: 1px solid var(--border);
+  }
+  .lp-sub-heading:first-of-type { margin-top: 0; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-name">Kevin Maroney</span>
+  <div class="nav-actions">
+    <div class="nav-links">
+      <button class="nav-link active" onclick="showSection('experience', this)">Experience</button>
+      <button class="nav-link" onclick="showSection('skills', this)">Skills</button>
+      <button class="nav-link" onclick="showSection('leadership', this)">Leadership Portfolio</button>
+      <button class="nav-link" onclick="showSection('contact', this)">Contact</button>
+    </div>
+    <a href="Kevin_Maroney_Resume.pdf" class="btn-secondary" download="Kevin_Maroney_Resume.pdf">Download PDF</a>
+  </div>
+</nav>
+
+<!-- BELIEFS BAR -->
+<div class="beliefs-bar">
+  <div class="beliefs-inner">
+    <span class="beliefs-label">I believe:</span>
+    <span class="belief-chip">People First — <strong>Culture is earned</strong></span>
+    <span class="belief-chip"><strong>Results</strong> over Narrative</span>
+    <span class="belief-chip">Comfort leads to <strong>stagnation</strong></span>
+    <span class="belief-chip"><em>Genuine</em> <strong>positive energy</strong> has tangible impact</span>
+    <span class="belief-chip">The shiny new platform <strong>fails when no-one uses it</strong></span>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <div class="hero-label">Data &amp; AI Leader · Asset Management</div>
+    <h1 class="hero-name">Kevin<br><em>Maroney</em></h1>
+    <div class="hero-title">Director-level · 12+ Years · Investment Data &amp; AI Platform Engineering</div>
+    <div class="hero-bio">
+      <p><em>This resume; built through Claude. This section; written by me.</em></p>
+      <p>What a fun world we live in. Agentic workflows and AI services dramatically scale what we can deliver as data functions. What's the role of a data leader tomorrow:</p>
+      <ul>
+        <li>Set clarity on vision and expectations.</li>
+        <li>Create an environment that rewards bold imagination and curiosity.</li>
+        <li>Cultivate T-shaped judgment: stay broad on how the system fits together, go as deep as the problem requires, and always know what good looks like.</li>
+        <li>Be the best in the room at asking questions.</li>
+        <li>Surround yourself with exceptional people — and retain that talent.</li>
+      </ul>
+      <p>My experience is wide. I've worked across multiple brand-name asset managers, spanning the disciplines of a data organization. My differentiator is knowing what matters and enabling teams through technology, process, and culture to optimize their output — ultimately optimizing value for the organization.</p>
+    </div>
+  </div>
+  <div class="stats-panel">
+    <div class="stat-card">
+      <div class="stat-value">12+</div>
+      <div class="stat-label">Years in data engineering &amp; analytics leadership</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">25</div>
+      <div class="stat-label">Engineers and Analysts led globally</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">50%</div>
+      <div class="stat-label">Reduction in time from requirement to PR via Darwin</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">$4.75M</div>
+      <div class="stat-label">Revenue generated at EFG through data-backed decisions</div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- EXPERIENCE -->
+  <div class="section active" id="section-experience">
+    <div class="section-tag">// career</div>
+    <div class="section-heading">Experience</div>
+    <div class="timeline">
+
+      <!-- Carlyle -->
+      <div class="job">
+        <div class="job-dot"></div>
+        <div class="job-header open" onclick="toggleJob(this)">
+          <div>
+            <div class="job-title">Data &amp; Analytics Lead, Investor Relations</div>
+            <div class="job-meta">The Carlyle Group · New York, NY</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:16px;">
+            <div class="job-dates">2025 – Present</div>
+            <svg class="job-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="job-body open">
+          <p class="job-summary-text">Leading data and analytics strategy for Investor Relations — working directly with client-facing and product leadership across Global Wealth and Institutional channels to connect foundational data infrastructure to the use cases that matter. Co-sponsoring TEMPO, an AI-native platform initiative reshaping how IR insights are created, distributed, and acted on across the firm.</p>
+
+          <div class="sub-section-label">Platform Strategy</div>
+          <ul class="blist">
+            <li>Diagnosed the disconnect between IR consumers and data engineers; designed a unified strategy spanning use-cases, consumption, transformations, and source systems — bridging technical execution with channel-level business priorities</li>
+          </ul>
+
+          <div class="sub-section-label"><span class="ai-badge">Agentic</span> Darwin — Built in 4 weeks</div>
+          <ul class="blist">
+            <li>Cursor-based agentic dbt workflow delivering a 50% reduction in time from requirement to merged PR, with full traceability across the development lifecycle</li>
+            <ul class="blist sub">
+              <li>Jira client: task creation, status tracking, and card movement automation</li>
+              <li>Automated testing framework for technical and business validation throughout dev</li>
+              <li>GitHub integration for PR creation and structured code review</li>
+              <li>Confluence client auto-generating data product documentation at delivery</li>
+            </ul>
+          </ul>
+
+          <div class="sub-section-label"><span class="ai-badge">AI Platform</span> TEMPO — Co-led with firm's AI Lead</div>
+          <ul class="blist">
+            <li>Unified IR Data Model across Global Wealth and Institutional lines via dbt semantics and Snowflake; onboarded Preqin as a third-party data source with entity mapping to internal CRM data</li>
+            <li>Curated data product layer for core IR domains: commitments, pipeline, interactions</li>
+            <li>Lightweight MCP layer coordinating LLM prompts into structured API-exposed tool instructions</li>
+            <li>Onboarded Claude as the firm's AI layer; built reusable skills enabling IR self-service across three flagship use cases:</li>
+            <ul class="blist sub">
+              <li><strong>LP Compass</strong> — AI-powered scoring models connecting internal data to LP profiles, enabling targeted outreach through Claude-exposed workflows</li>
+              <li><strong>Next Best Call</strong> — Targeted advisor list for GW channel, surfaced via Salesforce integration to prioritize high-value outreach</li>
+              <li><strong>Redemption Risk</strong> — Propensity-to-redeem model built on engagement, transaction, and fund-level behavioral patterns to flag at-risk allocators early</li>
+            </ul>
+          </ul>
+
+          <div class="sub-section-label">Results</div>
+          <span class="result-chip">▲ 50% reduction in time from requirement to PR</span>
+          <span class="result-chip">▲ 120% WAU increase — Institutional Suite</span>
+          <span class="result-chip">Business Impact: Measurement in Progress</span>
+        </div>
+      </div>
+
+      <!-- EFG -->
+      <div class="job">
+        <div class="job-dot"></div>
+        <div class="job-header" onclick="toggleJob(this)">
+          <div>
+            <div class="job-title">VP, Data Analytics &amp; Data Engineering</div>
+            <div class="job-meta">ESL FACEIT Group (EFG) · New York, NY</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:16px;">
+            <div class="job-dates">2024 – 2025</div>
+            <svg class="job-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="job-body">
+          <ul class="blist">
+            <li>Unified fragmented analytics into Snowflake + dbt + Tableau ("The Vault") — tripling data usage across business units</li>
+            <li>Deployed conversational AI for natural language data access — reduced reporting requests by 25%</li>
+            <li>Led international team of 23 across analytics and data engineering; pod model drove 90%+ stakeholder satisfaction</li>
+            <li>Built valuation framework for monetizable esports broadcast moments — unlocked $4M+ in Gross Media Value</li>
+          </ul>
+          <div style="margin-top:14px;">
+            <span class="result-chip">▲ $4M+ New Gross Media Value</span>
+            <span class="result-chip">▲ $750K Incremental Ad Revenue</span>
+            <span class="result-chip">▲ 25% Reporting Reduction</span>
+            <span class="result-chip">▲ 90%+ Satisfaction</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Apollo -->
+      <div class="job">
+        <div class="job-dot dim"></div>
+        <div class="job-header" onclick="toggleJob(this)">
+          <div>
+            <div class="job-title">Senior Director, Data &amp; Analytics</div>
+            <div class="job-meta">Keyrus — Apollo Global Management engagement</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:16px;">
+            <div class="job-dates">2021 – 2024</div>
+            <svg class="job-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="job-body">
+          <div class="client-block">
+            <div class="client-block-name">Apollo Global Management</div>
+            <div class="client-block-results">
+              <span class="result-chip">▲ 8% shorter sales lifecycle</span>
+              <span class="result-chip">▼ CPS Budget/AUM ratio</span>
+              <span class="result-chip">First-ever cross-channel visibility</span>
+            </div>
+            <ul class="blist">
+              <li>Defined and led CPS data strategy — architecture, prioritization, and change management for Apollo's first enterprise data product suite</li>
+              <li>Partnered with COO of CPS to design operating model for cross-platform services (Data, Digital, Enablement)</li>
+              <li>Client and product master data models unifying 7+ upstream data sources across CRM, portfolio, and operational systems</li>
+              <li>Extended to Investment division — surfacing risk profiles and credit-asset details across private-credit vehicles</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- T Rowe -->
+      <div class="job">
+        <div class="job-dot dim"></div>
+        <div class="job-header" onclick="toggleJob(this)">
+          <div>
+            <div class="job-title">Senior Director, Data &amp; Analytics</div>
+            <div class="job-meta">Keyrus — T. Rowe Price engagement</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:16px;">
+            <div class="job-dates">2017 – 2020</div>
+            <svg class="job-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="job-body">
+          <div class="client-block">
+            <div class="client-block-name">T. Rowe Price</div>
+            <div class="client-block-results">
+              <span class="result-chip">85% WAU adoption</span>
+              <span class="result-chip">1,200 hrs/yr saved</span>
+              <span class="result-chip">▲ 25% forecast accuracy</span>
+              <span class="result-chip">▲ 30% attribution accuracy</span>
+            </div>
+            <ul class="blist">
+              <li>Delivered MVP data platform in 6 months; authored 12-month roadmap spanning people, tech, and process modernization</li>
+              <li>Partnered with Sales Leadership on account tiering and coverage logic</li>
+              <li>Migrated legacy data to Snowflake with modernized data-model architecture</li>
+              <li>Mapped enterprise data landscape; enabled newly formed data governance function</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Keyrus Internal -->
+      <div class="job">
+        <div class="job-dot dim"></div>
+        <div class="job-header" onclick="toggleJob(this)">
+          <div>
+            <div class="job-title">Senior Director — Internal Leadership</div>
+            <div class="job-meta">Keyrus · 2013–2024 · Also: BNY (2016), Bank of America (2013–2015)</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:16px;">
+            <div class="job-dates">2013 – 2024</div>
+            <svg class="job-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="job-body">
+          <ul class="blist">
+            <li>Supervised accounts responsible for 50%+ of firm delivery revenue; led cross-vertical engagements in analytics, data engineering, and business transformation</li>
+            <li>Directed 20+ consultants; mentored Directors and Managing Consultants, building a culture grounded in feedback and transparency</li>
+            <li>Led comprehensive data strategy engagements; advised CDOs and SVPs on operating models, analytics roadmaps, and embedded team structures</li>
+            <li>Reported directly to CEO of Americas on organizational growth strategy</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /experience -->
+
+  <!-- SKILLS -->
+  <div class="section" id="section-skills">
+    <div class="section-tag">// capabilities</div>
+    <div class="section-heading">Skills &amp; Technologies</div>
+    <div class="skills-grid">
+
+      <div class="skill-card">
+        <div class="skill-card-label">AI &amp; Agentic Engineering</div>
+        <div class="skill-item"><span class="skill-dot"></span>MCP Protocol &amp; Architecture</div>
+        <div class="skill-item"><span class="skill-dot"></span>Agentic Workflow Design (Darwin)</div>
+        <div class="skill-item"><span class="skill-dot"></span>LLM Integration &amp; Deployment</div>
+        <div class="skill-item"><span class="skill-dot"></span>Claude / Anthropic</div>
+        <div class="skill-item"><span class="skill-dot"></span>OpenAI · Gemini</div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-label">Data Platform</div>
+        <div class="skill-item"><span class="skill-dot green"></span>Snowflake · Databricks</div>
+        <div class="skill-item"><span class="skill-dot green"></span>dbt · Fivetran · Airbyte</div>
+        <div class="skill-item"><span class="skill-dot green"></span>Airflow · AWS · Azure</div>
+        <div class="skill-item"><span class="skill-dot green"></span>Streaming Architecture</div>
+        <div class="skill-item"><span class="skill-dot green"></span>Data Modeling (Lakehouse, Vault, Mesh)</div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-label">Engineering &amp; DevOps</div>
+        <div class="skill-item"><span class="skill-dot amber"></span>Python · SQL</div>
+        <div class="skill-item"><span class="skill-dot amber"></span>GitHub · CI/CD Pipelines</div>
+        <div class="skill-item"><span class="skill-dot amber"></span>Data Governance &amp; Lineage</div>
+        <div class="skill-item"><span class="skill-dot amber"></span>Jira · Confluence Integration</div>
+        <div class="skill-item"><span class="skill-dot amber"></span>Semarchy · Metaplane</div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-label">Global Data &amp; Analytics Orgs (20–30)</div>
+        <div class="skill-item"><span class="skill-dot"></span>Investment / IR Data Specialist</div>
+        <div class="skill-item"><span class="skill-dot"></span>C-Suite &amp; COO Advisory</div>
+        <div class="skill-item"><span class="skill-dot"></span>Platform Strategy &amp; Roadmap</div>
+        <div class="skill-item"><span class="skill-dot"></span>Data Operating Model Design</div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-label">BI &amp; Visualization</div>
+        <div class="skill-item"><span class="skill-dot green"></span>Tableau · Power BI · Looker</div>
+        <div class="skill-item"><span class="skill-dot green"></span>Qlik · Alteryx</div>
+      </div>
+
+      <div class="skill-card" style="background: var(--surface2); border-color: rgba(77,201,255,0.15);">
+        <div class="skill-card-label" style="color: var(--green);">Education</div>
+        <div style="font-family:'DM Serif Display',serif; font-size:22px; color:white; margin-bottom:6px;">B.S. Finance</div>
+        <div style="font-size:14px; color:var(--muted); font-weight:300;">Lehigh University</div>
+        <div style="font-size:13px; color:var(--muted2); margin-top:4px; font-weight:300;">Class of 2013</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="section" id="section-contact">
+    <div class="section-tag">// reach out</div>
+    <div class="section-heading">Contact</div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="contact-label">Location</div>
+        <div class="contact-value">Mendham, NJ</div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-label">Phone</div>
+        <div class="contact-value">908.577.6672</div>
+      </div>
+      <div class="contact-card" style="grid-column: span 2;">
+        <div class="contact-label">Email</div>
+        <div class="contact-value"><a href="mailto:kevin.m.maroney@gmail.com">kevin.m.maroney@gmail.com</a></div>
+      </div>
+      <div class="contact-card" style="grid-column: span 2;">
+        <div class="contact-label">Leadership Portfolio</div>
+        <div class="contact-value"><a href="https://marones13.github.io/" target="_blank" rel="noopener noreferrer">marones13.github.io ↗</a></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- LEADERSHIP PORTFOLIO -->
+  <div class="section" id="section-leadership">
+    <div class="section-tag">// leadership portfolio</div>
+    <div class="section-heading">Leadership Portfolio</div>
+    <p class="lp-intro">The full picture behind the resume — how I build teams, drive strategy, and deliver measurable results. Each section maps directly to the experience above.</p>
+
+    <!-- ── CAREER AT A GLANCE ── -->
+    <div class="lp-sub-heading">Career at a Glance</div>
+    <div class="career-timeline">
+      <div class="career-node">
+        <div class="career-dot"></div>
+        <div class="career-year">2013</div>
+        <div class="career-role">Consultant</div>
+        <div class="career-co">Bank of America</div>
+      </div>
+      <div class="career-node">
+        <div class="career-dot"></div>
+        <div class="career-year">2014</div>
+        <div class="career-role">Sr. Consultant</div>
+        <div class="career-co">Keyrus</div>
+      </div>
+      <div class="career-node">
+        <div class="career-dot"></div>
+        <div class="career-year">2016</div>
+        <div class="career-role">Managing Consultant</div>
+        <div class="career-co">Keyrus / BNY</div>
+      </div>
+      <div class="career-node">
+        <div class="career-dot"></div>
+        <div class="career-year">2018</div>
+        <div class="career-role">Director</div>
+        <div class="career-co">Keyrus</div>
+      </div>
+      <div class="career-node highlight">
+        <div class="career-dot"></div>
+        <div class="career-year">2020</div>
+        <div class="career-role">Senior Director</div>
+        <div class="career-co">Keyrus — youngest in co. history</div>
+      </div>
+      <div class="career-node highlight">
+        <div class="career-dot"></div>
+        <div class="career-year">2024</div>
+        <div class="career-role">VP Analytics &amp; Data Engineering</div>
+        <div class="career-co">ESL FACEIT Group</div>
+      </div>
+      <div class="career-node current">
+        <div class="career-dot"></div>
+        <div class="career-year">2025</div>
+        <div class="career-role">Data &amp; Analytics Lead, IR</div>
+        <div class="career-co">The Carlyle Group</div>
+      </div>
+    </div>
+
+    <!-- ── LEADERSHIP PRINCIPLES ── -->
+    <div class="lp-sub-heading">Leadership Principles</div>
+    <div class="principles-grid">
+      <div class="principle-card">
+        <div class="principle-icon">🤝</div>
+        <div class="principle-name">People First</div>
+        <div class="principle-desc">Build trust, empower growth, and put the team above ego. Culture is the foundation everything else is built on.</div>
+        <div class="principle-quote">"Culture is earned, not gifted."</div>
+      </div>
+      <div class="principle-card">
+        <div class="principle-icon">⚙️</div>
+        <div class="principle-name">Machine Mindset</div>
+        <div class="principle-desc">Operate with systems thinking, automation, and repeatability in mind. If you're doing it twice, build a process.</div>
+        <div class="principle-quote">"Build once. Improve always."</div>
+      </div>
+      <div class="principle-card">
+        <div class="principle-icon">📈</div>
+        <div class="principle-name">Business Impact Obsessed</div>
+        <div class="principle-desc">Every project must drive measurable value. Output without outcome is just activity.</div>
+        <div class="principle-quote">"Focus on what moves the needle — and prove it after launch."</div>
+      </div>
+      <div class="principle-card">
+        <div class="principle-icon">📡</div>
+        <div class="principle-name">No Surprises</div>
+        <div class="principle-desc">Over-communicate, anticipate risks, and create transparency across all levels of the organization.</div>
+        <div class="principle-quote">"Communication is the key ingredient in building trust."</div>
+      </div>
+      <div class="principle-card">
+        <div class="principle-icon">🎯</div>
+        <div class="principle-name">Relentless Excellence</div>
+        <div class="principle-desc">Good enough is never good enough. Raise the bar continuously — on craft, on delivery, on standards.</div>
+        <div class="principle-quote">"Details matter. Standards matter more."</div>
+      </div>
+    </div>
+
+    <!-- ── CASE STUDIES ── -->
+    <div class="lp-sub-heading">Case Studies</div>
+    <div class="timeline" style="padding-left:0; margin-bottom:0;">
+
+      <!-- Case Study: The Vault -->
+      <div class="job" style="margin-bottom:12px;">
+        <div class="cs-header open" onclick="toggleCs(this)">
+          <div>
+            <div class="cs-tag">Case Study 01 · EFG · Data Modernization</div>
+            <div class="cs-title">The Vault — Unified Data Platform Post-Merger</div>
+            <div class="cs-meta">ESL FACEIT Group · New York, NY · 2024</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;">
+            <svg class="job-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="cs-body open">
+          <p class="job-summary-text">Following the merger of two major Esports organizations, there was a critical need to unify fragmented data systems and transform data from a liability into a strategic asset. Built a best-in-class unified data platform from the ground up in 6 months.</p>
+
+          <div class="stat-row">
+            <div class="stat-callout"><div class="stat-callout-val">$5.3M</div><div class="stat-callout-label">Revenue opportunities identified</div></div>
+            <div class="stat-callout"><div class="stat-callout-val green">$400K</div><div class="stat-callout-label">Infrastructure savings (20%)</div></div>
+            <div class="stat-callout"><div class="stat-callout-val amber">2,000</div><div class="stat-callout-label">Hours saved annually</div></div>
+            <div class="stat-callout"><div class="stat-callout-val">$450K</div><div class="stat-callout-label">External consulting revenue created</div></div>
+            <div class="stat-callout"><div class="stat-callout-val green">14</div><div class="stat-callout-label">Data science models deployed</div></div>
+          </div>
+
+          <div class="sub-section-label">What We Built</div>
+          <ul class="blist">
+            <li>Unified Snowflake + dbt + Tableau data platform ("The Vault") — 150+ enterprise datasets, 60 centralized KPIs across 5 business functions</li>
+            <li>Conversational AI (Jedify) enabling natural language data access; 42 self-serve analytics users within months of launch</li>
+            <li>First-ever business pod operating model — embedded analysts into product lines, driving 4.5/5 CSAT and 42% Director+ engagement</li>
+            <li>RICE prioritization methodology (enhanced: strategic alignment + exec support scoring) to manage request backlog at scale</li>
+            <li>MLOps framework reducing model deployment from 9 months → 3 months; 100% of production models under continuous drift monitoring</li>
+          </ul>
+
+          <div class="sub-section-label">Visibility Layer</div>
+          <ul class="blist">
+            <li>150+ enterprise datasets available for cross-functional use</li>
+            <li>60 centralized KPIs connected across Esports, Digital Platform, Finance, Commercial, and Product</li>
+            <li>8 C-Level / SVP research engagements; 9 data science models applied daily by 1.7M monthly active players</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Case Study: Asset Management -->
+      <div class="job" style="margin-bottom:12px;">
+        <div class="cs-header" onclick="toggleCs(this)">
+          <div>
+            <div class="cs-tag">Case Study 02 · Fortune 500 · Asset Management</div>
+            <div class="cs-title">Distribution Intelligence Platform — $750B AUM Firm</div>
+            <div class="cs-meta">Keyrus engagement · Apollo Global Management · 2021–2024</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;">
+            <svg class="job-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="cs-body">
+          <p class="job-summary-text">Completely redesigned and built the Distribution Intelligence platform to support the front-office of a $750B AUM asset manager. Defined CPS data strategy from the ground up — architecture, prioritization, and change management for the firm's first enterprise data product suite.</p>
+
+          <div class="stat-row">
+            <div class="stat-callout"><div class="stat-callout-val">250</div><div class="stat-callout-label">Active users within months of launch</div></div>
+            <div class="stat-callout"><div class="stat-callout-val green">8%</div><div class="stat-callout-label">Faster sales opportunity cycle</div></div>
+            <div class="stat-callout"><div class="stat-callout-val amber">3×</div><div class="stat-callout-label">Client revenue growth after first engagement</div></div>
+          </div>
+
+          <div class="sub-section-label">Scope &amp; Delivery</div>
+          <ul class="blist">
+            <li>Partnered with COO of CPS to design a cross-platform operating model spanning Data, Digital, and Enablement functions</li>
+            <li>Client and product master data models unifying 7+ upstream data sources; Snowflake + dbt + Tableau + Alteryx insights stack</li>
+            <li>Extended platform to Investment division — surfacing risk profiles and credit-asset details across private-credit vehicles</li>
+            <li>Earned trust as a strategic advisor; initial contract grew into a multi-year partnership with 3× revenue expansion</li>
+          </ul>
+          <span class="result-chip">▲ $100M in additional sales opportunities</span>
+          <span class="result-chip">80% of Sales &amp; Product leadership adopted platform</span>
+        </div>
+      </div>
+
+      <!-- Case Study: Non-Profit -->
+      <div class="job" style="margin-bottom:12px;">
+        <div class="cs-header" onclick="toggleCs(this)">
+          <div>
+            <div class="cs-tag">Case Study 03 · National Non-Profit · Healthcare Data</div>
+            <div class="cs-title">Embedded Analytics &amp; CI/CD Infrastructure — 25K Users</div>
+            <div class="cs-meta">Keyrus engagement · 2019–2021</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;">
+            <svg class="job-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="cs-body">
+          <p class="job-summary-text">Delivered embedded analytics infrastructure into a client-facing medical application platform — improving equity and efficiency in the application review process at national scale.</p>
+          <ul class="blist">
+            <li>Embedded 20+ dashboards into client-facing medical application platform reaching 25,000 users</li>
+            <li>Significantly improved equity and efficiency in application review, creating measurable improvements in service delivery</li>
+            <li>Implemented CI/CD Tableau infrastructure, row-level security offload, and comprehensive performance tuning</li>
+            <li>Trained internal team while enhancing documentation and governance processes for long-term sustainability</li>
+          </ul>
+        </div>
+      </div>
+
+    </div><!-- /case studies timeline -->
+
+    <!-- ── MANAGEMENT SYSTEM ── -->
+    <div class="lp-sub-heading">Management System</div>
+    <p style="font-size:14px; color:var(--muted); font-weight:300; line-height:1.6; margin-bottom:16px;">The operational playbook I run regardless of organization size — built on quarterly rhythms, transparent prioritization, and a culture that compounds over time.</p>
+    <div class="playbook-grid">
+      <div class="playbook-col">
+        <div class="playbook-col-label">Planning &amp; Strategy</div>
+        <div class="playbook-item"><strong>Annual Summary</strong> — Prior year KPI reflection (Q4)</div>
+        <div class="playbook-item"><strong>Annual Goal Setting</strong> — BU-aligned aspirational goals (Q4)</div>
+        <div class="playbook-item"><strong>Quarterly OKRs</strong> — Tactical objectives tied to annual vision</div>
+        <div class="playbook-item"><strong>Quarterly Review</strong> — Reset priorities 3 weeks before Q-end</div>
+        <div class="playbook-item"><strong>Partner Management</strong> — Business-aligned prioritization across BUs</div>
+      </div>
+      <div class="playbook-col">
+        <div class="playbook-col-label">Execution &amp; Operations</div>
+        <div class="playbook-item"><strong>Initiative Tracking</strong> — Weekly updates via Jira + Monday.com</div>
+        <div class="playbook-item"><strong>Agile Rhythm</strong> — Monthly planning, retros, demos, standups</div>
+        <div class="playbook-item"><strong>RICE Prioritization</strong> — Reach, Impact, Confidence, Effort + strategic alignment</div>
+        <div class="playbook-item"><strong>Budget Planning</strong> — Bottom-up: headcount, tech, culture (Q4)</div>
+        <div class="playbook-item"><strong>QDRs</strong> — Structured BU-level roadmap touchpoints</div>
+      </div>
+      <div class="playbook-col">
+        <div class="playbook-col-label">People &amp; Culture</div>
+        <div class="playbook-item"><strong>eNPS &amp; Value Workshops</strong> — Quarterly feedback + action alignment</div>
+        <div class="playbook-item"><strong>Quarterly Townhalls</strong> — Org-wide alignment and visibility</div>
+        <div class="playbook-item"><strong>Career Framework</strong> — Role clarity and growth path for every IC</div>
+        <div class="playbook-item"><strong>Performance Management</strong> — Continuous feedback + review cycles</div>
+        <div class="playbook-item"><strong>Lunch &amp; Learns</strong> — Peer-led development, weekly cadence</div>
+      </div>
+    </div>
+
+    <!-- ── VISION & PHILOSOPHY ── -->
+    <div class="lp-sub-heading">Vision &amp; Philosophy</div>
+    <div class="philosophy-grid">
+      <div class="philosophy-card">
+        <div class="philosophy-card-icon">🏗️</div>
+        <div class="philosophy-card-title">Culture is earned, not proclaimed</div>
+        <div class="philosophy-card-text">Strong data teams are built on trust, transparency, and shared purpose. Leadership sets the tone — but the team writes the culture.</div>
+      </div>
+      <div class="philosophy-card">
+        <div class="philosophy-card-icon">🔄</div>
+        <div class="philosophy-card-title">Comfort leads to stagnation</div>
+        <div class="philosophy-card-text">Continuous improvement requires embracing challenges and new technologies. The organizations that stay uncomfortable stay relevant.</div>
+      </div>
+      <div class="philosophy-card">
+        <div class="philosophy-card-icon">🤖</div>
+        <div class="philosophy-card-title">AI readiness is mandatory</div>
+        <div class="philosophy-card-text">Organizations must prepare data foundations for the AI era, focusing on quality, governance, and accessibility. You can't skip the foundation.</div>
+      </div>
+      <div class="philosophy-card">
+        <div class="philosophy-card-icon">🎯</div>
+        <div class="philosophy-card-title">Data that moves business</div>
+        <div class="philosophy-card-text">The best data platform is the one people use. Adoption, trust, and end-user impact matter more than technical elegance.</div>
+      </div>
+    </div>
+
+  </div><!-- /leadership -->
+
+</div><!-- /content -->
+
+<script>
+  /* ── NAVIGATION ── */
+  function showSection(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
+    document.getElementById('section-' + id).classList.add('active');
+    btn.classList.add('active');
+
+    const hideHero = id === 'skills' || id === 'leadership' || id === 'contact';
+    document.body.classList.toggle('hide-hero-main', hideHero);
+
+    window.scrollTo(0, 0);
+  }
+
+  function toggleJob(header) {
+    const body = header.nextElementSibling;
+    const isOpen = header.classList.contains('open');
+    header.classList.toggle('open', !isOpen);
+    body.classList.toggle('open', !isOpen);
+  }
+
+  function toggleCs(header) {
+    const body = header.nextElementSibling;
+    const isOpen = header.classList.contains('open');
+    header.classList.toggle('open', !isOpen);
+    body.classList.toggle('open', !isOpen);
+  }
+</script>
+</body>
+</html>
